@@ -10,7 +10,7 @@
             --bg-color: #f9f9f9;
             --card-bg: #ffffff;
             --sub-text-color: #a4b0be;
-            --point-color: #00b894; /* 축하 메시지용 포인트 색상 (초록 계열) */
+            --point-color: #00b894;
         }
 
         body {
@@ -21,7 +21,8 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: clamp(10px, 3vw, 20px);
+            box-sizing: border-box;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -29,37 +30,61 @@
         .coupon-card {
             background-color: var(--card-bg);
             width: 100%;
-            max-width: 850px; 
-            padding: 50px 40px;
-            border-radius: 30px;
+            max-width: 850px;
+            padding: clamp(20px, 5vw, 50px) clamp(15px, 4vw, 40px);
+            border-radius: clamp(15px, 3vw, 30px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
             text-align: center;
             border: 4px dashed var(--primary-color);
             position: relative;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
-        h1 { color: var(--primary-color); font-size: 3rem; margin-bottom: 5px; }
-        .title-ja { color: var(--sub-text-color); font-size: 1.2rem; margin-bottom: 25px; }
+        h1 {
+            color: var(--primary-color);
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
 
-        .desc-ko { color: #2d3436; font-size: 1.5rem; margin-bottom: 5px; line-height: 1.4; font-weight: 500; }
-        .desc-ja { color: var(--sub-text-color); font-size: 1rem; margin-bottom: 40px; line-height: 1.4; }
+        .title-ja {
+            color: var(--sub-text-color);
+            font-size: clamp(0.7rem, 2.2vw, 1.2rem);
+            margin-bottom: clamp(15px, 3vw, 25px);
+            line-height: 1.4;
+        }
+
+        .desc-ko {
+            color: #2d3436;
+            font-size: clamp(0.85rem, 2.8vw, 1.5rem);
+            margin-bottom: 5px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .desc-ja {
+            color: var(--sub-text-color);
+            font-size: clamp(0.65rem, 1.8vw, 1rem);
+            margin-bottom: clamp(20px, 4vw, 40px);
+            line-height: 1.5;
+        }
 
         .stamp-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 25px;
-            margin-bottom: 50px;
+            gap: clamp(8px, 2vw, 25px);
+            margin-bottom: clamp(20px, 4vw, 50px);
         }
 
         .stamp-slot {
             aspect-ratio: 1 / 1;
-            border: 3px solid #dfe6e9;
+            border: clamp(2px, 0.4vw, 3px) solid #dfe6e9;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5rem;
+            font-size: clamp(0.9rem, 3vw, 2.5rem);
             position: relative;
             background-color: #fff;
             color: #b2bec3;
@@ -67,8 +92,8 @@
         }
 
         .stamp-slot.active::after {
-            content: attr(data-phrase); 
-            font-size: 1.3rem; 
+            content: attr(data-phrase);
+            font-size: clamp(0.55rem, 1.6vw, 1.3rem);
             color: white;
             background-color: var(--primary-color);
             width: 90%;
@@ -84,23 +109,23 @@
             box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
             white-space: pre-wrap;
             word-break: keep-all;
-            padding: 10px;
+            padding: clamp(4px, 1vw, 10px);
             box-sizing: border-box;
         }
 
-        /* 🔹 왼쪽 하단 축하 메시지 스타일 */
         #congratsMessage {
-            display: none; /* 기본적으로 숨김 */
+            display: none;
             text-align: left;
             background-color: #f0fff4;
             border-left: 5px solid var(--point-color);
-            padding: 15px 20px;
+            padding: clamp(10px, 2vw, 15px) clamp(12px, 2.5vw, 20px);
             border-radius: 10px;
             color: #2d3436;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: clamp(0.8rem, 2.2vw, 1.1rem);
             margin-top: 10px;
             animation: slideUp 0.5s ease-out;
+            line-height: 1.6;
         }
 
         @keyframes slideUp {
@@ -112,20 +137,27 @@
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: clamp(10px, 2vw, 20px);
         }
 
         .btn {
             border: 1px solid #b2bec3;
             color: #a4b0be;
-            padding: 5px 12px;
+            padding: clamp(4px, 1vw, 5px) clamp(8px, 1.5vw, 12px);
             border-radius: 10px;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: clamp(0.65rem, 1.5vw, 0.75rem);
             background: #f9f9f9;
         }
 
         .btn:hover { background-color: #eee; }
+
+        /* 모바일 전용 추가 조정 */
+        @media (max-width: 400px) {
+            .stamp-slot.active::after {
+                font-size: clamp(0.45rem, 2.8vw, 0.7rem);
+            }
+        }
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -142,12 +174,12 @@
         10回のレッスンを完了するたびにスタンプを差し上げます。<br>
         スタンプが5個たまると、<strong>50分間の無料レッスン</strong>をプレゼントします！
     </div>
-    
+
     <div class="stamp-grid" id="stampGrid"></div>
 
     <div id="congratsMessage">
         🎉 축하합니다! 카페토크에서 50분 수업 쿠폰을 받으세요 :) <br>
-        <span style="font-size: 0.9rem; color: #636e72; font-weight: normal;">(おめでとうございます！カフェトークで50分無料レッスンクーポンを受け取ってください。)</span>
+        <span style="font-size: clamp(0.65rem, 1.8vw, 0.9rem); color: #636e72; font-weight: normal;">(おめでとうございます！カフェトークで50分無料レッスンクーポンを受け取ってください。)</span>
     </div>
 
     <div class="footer-controls">
@@ -157,7 +189,6 @@
 </div>
 
 <script>
-    // 보안 설정: F12 차단
     document.onkeydown = function(e) {
         if(e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 73 || e.keyCode == 74))) return false;
     };
@@ -166,7 +197,7 @@
     const grid = document.getElementById('stampGrid');
     const msgArea = document.getElementById('congratsMessage');
     const phrases = ["참 잘했어요", "내가 또 해냄", "제법 멋진 나", "아주 칭찬해", "최고예요!"];
-    const ADMIN_PW = "2735"; // 비밀번호 변경 가능
+    const ADMIN_PW = "2735";
 
     const urlParams = new URLSearchParams(window.location.search);
     let stampStatus = urlParams.get('s') ? urlParams.get('s').split('').map(v => v === '1') : Array(totalStamps).fill(false);
@@ -184,7 +215,6 @@
             grid.appendChild(slot);
         });
 
-        // 🔹 5번째 도장이 찍혔는지 확인하여 메시지 표시
         if (stampStatus[4] === true) {
             msgArea.style.display = 'block';
         } else {
